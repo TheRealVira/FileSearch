@@ -14,7 +14,7 @@
                       TextOptions.TextRenderingMode="Auto"
                       GlowBrush="{DynamicResource AccentColorBrush}"
                       Background="{DynamicResource MaterialDesignPaper}"
-                      FontFamily="{DynamicResource MaterialDesignFont}">
+                      FontFamily="{DynamicResource MaterialDesignFont}" Closed="MetroWindow_Closed">
     <Grid>
 
         <materialDesign:Card Height="216" Margin="10,50,5,0" HorizontalAlignment="Right" Width="170"

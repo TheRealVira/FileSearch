@@ -6,12 +6,13 @@
 // Project: FileSearch
 // Filename: MainWindow.xaml.cs
 // Date - created:2016.07.10 - 11:19
-// Date - current: 2016.07.13 - 19:01
+// Date - current: 2016.07.13 - 19:17
 
 #endregion
 
 #region Usings
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -120,6 +121,26 @@ namespace FileSearch
         private void FileGatheringCmbbx_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _thatsHowIGatherFiles = _fileGatheringAlgorithms[FileGatheringCmbbx.SelectedItem.ToString()].Algorithm;
+        }
+
+        /// <summary>
+        ///     For good practice:
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MetroWindow_Closed(object sender, EventArgs e)
+        {
+            TreeView.Items.Clear();
+            SingletonContentFactory.Dispose();
+        }
+
+        /// <summary>
+        ///     To be complete sure, we aren't missing something
+        /// </summary>
+        ~MainWindow()
+        {
+            TreeView.Items.Clear();
+            SingletonContentFactory.Dispose();
         }
     }
 }

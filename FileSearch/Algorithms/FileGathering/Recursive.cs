@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: Recursive.cs
 // Date - created:2016.07.13 - 17:40
-// Date - current: 2016.07.13 - 19:01
+// Date - current: 2016.07.13 - 19:17
 
 #endregion
 
@@ -44,9 +44,9 @@ namespace FileSearch.SearchingAlgorithms
 
                     var copy = new Image
                     {
-                        Source = SingletonContentFactory.Icons["File"].Source,
-                        Width = SingletonContentFactory.Icons["File"].Width,
-                        Height = SingletonContentFactory.Icons["File"].Height
+                        Source = SingletonContentFactory.Icons["File"],
+                        Width = SingletonContentFactory.ICON_WIDTH,
+                        Height = SingletonContentFactory.ICON_HEIGHT
                     };
 
                     stack.Orientation = Orientation.Horizontal;
@@ -69,9 +69,9 @@ namespace FileSearch.SearchingAlgorithms
 
                     var copy = new Image
                     {
-                        Source = SingletonContentFactory.Icons["Folder"].Source,
-                        Width = SingletonContentFactory.Icons["Folder"].Width,
-                        Height = SingletonContentFactory.Icons["Folder"].Height
+                        Source = SingletonContentFactory.Icons["Folder"],
+                        Width = SingletonContentFactory.ICON_WIDTH,
+                        Height = SingletonContentFactory.ICON_HEIGHT
                     };
 
                     stack.Orientation = Orientation.Horizontal;
