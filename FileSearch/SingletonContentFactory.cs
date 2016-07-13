@@ -4,9 +4,9 @@
 // All rights reserved.
 // Solution: FileSearch
 // Project: FileSearch
-// Filename: ContentFactory.cs
+// Filename: SingletonContentFactory.cs
 // Date - created:2016.07.10 - 13:49
-// Date - current: 2016.07.13 - 18:44
+// Date - current: 2016.07.13 - 19:01
 
 #endregion
 
@@ -22,7 +22,7 @@ using Image = System.Windows.Controls.Image;
 
 namespace FileSearch
 {
-    internal static class ContentFactory
+    internal static class SingletonContentFactory
     {
         public static Dictionary<string, Image> Icons;
 
@@ -40,10 +40,12 @@ namespace FileSearch
                 var decoder = BitmapDecoder.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.None);
                 BitmapSource src = decoder.Frames[0];
 
-                var image = new Image();
-                image.Source = src;
-                image.Width = 16;
-                image.Height = 16;
+                var image = new Image
+                {
+                    Source = src,
+                    Width = 16,
+                    Height = 16
+                };
                 Icons.Add(Path.GetFileNameWithoutExtension(file), image);
             }
         }

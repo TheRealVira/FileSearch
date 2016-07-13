@@ -81,7 +81,7 @@
     <Compile Include="Algorithms\SearchAlgorithm\ContentSearchAlgorithm.cs" />
     <Compile Include="Algorithms\SearchAlgorithm\Load_All_Into_RAM.cs" />
     <Compile Include="Algorithms\SearchAlgorithm\Top_To_Buttom.cs" />
-    <Compile Include="ContentFactory.cs" />
+    <Compile Include="SingletonContentFactory.cs" />
     <Compile Include="Algorithms\FileGathering\Iterative.cs" />
     <Compile Include="Algorithms\FileGathering\FileGatheringAlgorithm.cs" />
     <Compile Include="Algorithms\FileGathering\Recursive.cs" />
@@ -129,7 +129,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Content\Icons\File.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Icons\Folder.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

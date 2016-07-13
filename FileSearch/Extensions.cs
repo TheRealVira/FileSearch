@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: Extensions.cs
 // Date - created:2016.07.13 - 17:57
-// Date - current: 2016.07.13 - 18:44
+// Date - current: 2016.07.13 - 19:01
 
 #endregion
 
