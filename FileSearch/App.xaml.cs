@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: App.xaml.cs
 // Date - created:2016.07.10 - 11:19
-// Date - current: 2016.07.13 - 19:17
+// Date - current: 2016.07.13 - 19:22
 
 #endregion
 
