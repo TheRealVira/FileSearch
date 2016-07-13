@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: AssemblyInfo.cs
 // Date - created:2016.07.10 - 11:19
-// Date - current: 2016.07.13 - 18:39
+// Date - current: 2016.07.13 - 18:44
 
 #endregion
 

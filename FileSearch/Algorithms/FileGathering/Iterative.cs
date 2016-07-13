@@ -4,9 +4,9 @@
 // All rights reserved.
 // Solution: FileSearch
 // Project: FileSearch
-// Filename: NotDoingAnything.cs
+// Filename: Iterative.cs
 // Date - created:2016.07.13 - 17:40
-// Date - current: 2016.07.13 - 18:39
+// Date - current: 2016.07.13 - 18:44
 
 #endregion
 

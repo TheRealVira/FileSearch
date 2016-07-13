@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: Recursive.cs
 // Date - created:2016.07.13 - 17:40
-// Date - current: 2016.07.13 - 18:39
+// Date - current: 2016.07.13 - 18:44
 
 #endregion
 
