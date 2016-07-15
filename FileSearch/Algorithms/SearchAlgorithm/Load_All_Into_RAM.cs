@@ -6,13 +6,14 @@
 // Project: FileSearch
 // Filename: Load_All_Into_RAM.cs
 // Date - created:2016.07.13 - 17:51
-// Date - current: 2016.07.13 - 19:22
+// Date - current: 2016.07.15 - 21:54
 
 #endregion
 
 #region Usings
 
 using System.IO;
+using FileAlgorithms;
 
 #endregion
 

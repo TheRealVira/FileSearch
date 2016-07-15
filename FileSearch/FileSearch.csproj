@@ -78,12 +78,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Algorithms\SearchAlgorithm\Buttom_To_Top.cs" />
-    <Compile Include="Algorithms\SearchAlgorithm\ContentSearchAlgorithm.cs" />
     <Compile Include="Algorithms\SearchAlgorithm\Load_All_Into_RAM.cs" />
     <Compile Include="Algorithms\SearchAlgorithm\Top_To_Buttom.cs" />
     <Compile Include="SingletonContentFactory.cs" />
     <Compile Include="Algorithms\FileGathering\Iterative.cs" />
-    <Compile Include="Algorithms\FileGathering\FileGatheringAlgorithm.cs" />
     <Compile Include="Algorithms\FileGathering\Recursive.cs" />
     <Compile Include="Algorithms\UltimateFactory.cs" />
     <Compile Include="Delegates.cs" />
@@ -137,7 +135,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Plugins\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FileAlgorithms\FileAlgorithms.csproj">
+      <Project>{8DEB3238-EFA9-499C-83CD-9AF87EAA8E54}</Project>
+      <Name>FileAlgorithms</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)Plugins\*.*" "$(TargetDir)\Plugins" /Y /I /E</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

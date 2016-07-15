@@ -3,9 +3,9 @@
 // Copyright (c) 2016, Vira
 // All rights reserved.
 // Solution: FileSearch
-// Project: FileSearch
+// Project: ExamplePlugin
 // Filename: AssemblyInfo.cs
-// Date - created:2016.07.10 - 11:19
+// Date - created:2016.07.15 - 18:02
 // Date - current: 2016.07.15 - 21:54
 
 #endregion
@@ -14,7 +14,6 @@
 
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Windows;
 
 #endregion
 
@@ -22,11 +21,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("FileSearch")]
+[assembly: AssemblyTitle("ExamplePlugin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FileSearch")]
+[assembly: AssemblyProduct("ExamplePlugin")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -37,25 +36,9 @@ using System.Windows;
 
 [assembly: ComVisible(false)]
 
-//In order to begin building localizable applications, set 
-//<UICulture>CultureYouAreCodingWith</UICulture> in your .csproj file
-//inside a <PropertyGroup>.  For example, if you are using US english
-//in your source files, set the <UICulture> to en-US.  Then uncomment
-//the NeutralResourceLanguage attribute below.  Update the "en-US" in
-//the line below to match the UICulture setting in the project file.
+// The following GUID is for the ID of the typelib if this project is exposed to COM
 
-//[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
-
-
-[assembly: ThemeInfo(
-    ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
-    //(used if a resource is not found in the page, 
-    // or application resource dictionaries)
-    ResourceDictionaryLocation.SourceAssembly //where the generic resource dictionary is located
-    //(used if a resource is not found in the page, 
-    // app, or any theme specific resource dictionaries)
-    )]
-
+[assembly: Guid("88178bff-66c4-492e-9304-7956a0d5f293")]
 
 // Version information for an assembly consists of the following four values:
 //

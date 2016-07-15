@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: Extensions.cs
 // Date - created:2016.07.13 - 17:57
-// Date - current: 2016.07.13 - 19:22
+// Date - current: 2016.07.15 - 21:54
 
 #endregion
 
@@ -29,5 +29,12 @@ namespace FileSearch
         /// <returns>Returns a new list filled with the keys of the dictionary.</returns>
         public static List<TKey> GetKeys<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
             => dictionary == null ? null : new List<TKey>(dictionary.Keys);
+
+        public static void TryAdd<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
+        {
+            if (dictionary.ContainsKey(key)) return;
+
+            dictionary.Add(key, value);
+        }
     }
 }

@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: SingletonContentFactory.cs
 // Date - created:2016.07.10 - 13:49
-// Date - current: 2016.07.13 - 19:22
+// Date - current: 2016.07.15 - 21:54
 
 #endregion
 

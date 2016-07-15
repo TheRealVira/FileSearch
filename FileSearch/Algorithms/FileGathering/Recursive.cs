@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: Recursive.cs
 // Date - created:2016.07.13 - 17:40
-// Date - current: 2016.07.13 - 19:22
+// Date - current: 2016.07.15 - 21:54
 
 #endregion
 
@@ -16,10 +16,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Controls;
+using FileAlgorithms;
 
 #endregion
 
-namespace FileSearch.SearchingAlgorithms
+namespace FileSearch.Algorithms.FileGathering
 {
     internal class Recursive : FileGatheringAlgorithm
     {

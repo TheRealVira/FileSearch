@@ -34,7 +34,9 @@
             </StackPanel>
         </materialDesign:Card>
 
-        <TextBox x:Name="PathTb" TextWrapping="Wrap" Text="" Margin="10,41,125,0" Height="21" VerticalAlignment="Top"
+        <Label x:Name="DirectoryLbl" Content="Directory:" HorizontalAlignment="Left" VerticalAlignment="Top"
+               Margin="10,41,0,0" />
+        <TextBox x:Name="PathTb" TextWrapping="Wrap" Text="" Margin="80,41,115,0" Height="21" VerticalAlignment="Top"
                  TextChanged="pathTB_TextChanged" />
         <Label x:Name="PathLbl" Content="Path:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" />
         <Button x:Name="SearchBtn" Content="Search" Margin="0,0,10,10" Height="32" VerticalAlignment="Bottom"

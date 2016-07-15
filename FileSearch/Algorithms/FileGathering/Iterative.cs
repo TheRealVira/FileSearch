@@ -6,20 +6,27 @@
 // Project: FileSearch
 // Filename: Iterative.cs
 // Date - created:2016.07.13 - 17:40
-// Date - current: 2016.07.13 - 19:22
+// Date - current: 2016.07.15 - 21:54
 
 #endregion
 
 #region Usings
 
 using System.Windows.Controls;
+using FileAlgorithms;
 
 #endregion
 
-namespace FileSearch.SearchingAlgorithms
+namespace FileSearch.Algorithms.FileGathering
 {
     internal class Iterative : FileGatheringAlgorithm
     {
+        //protected override TreeViewItem[] MySearchAlgo(string directory, FileContains searchAlgorithm,
+        //    string textToSearchFor,
+        //    string searchcrets = "*", bool subfolder = true)
+        //{
+        //}
+
         protected override TreeViewItem[] MySearchAlgo(string directory, FileContains searchAlgorithm,
             string textToSearchFor,
             string searchcrets = "*", bool subfolder = true)

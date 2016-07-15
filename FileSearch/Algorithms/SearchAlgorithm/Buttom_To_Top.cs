@@ -6,14 +6,14 @@
 // Project: FileSearch
 // Filename: Buttom_To_Top.cs
 // Date - created:2016.07.13 - 18:38
-// Date - current: 2016.07.13 - 19:22
+// Date - current: 2016.07.15 - 21:54
 
 #endregion
 
 #region Usings
 
 using System.IO;
-using System.Linq;
+using FileAlgorithms;
 
 #endregion
 
@@ -25,7 +25,7 @@ namespace FileSearch.Algorithms.SearchAlgorithm
         {
             var lines = File.ReadAllLines(file);
 
-            for (var i = 0; i < lines.Count(); i++)
+            for (var i = 0; i < lines.Length; i++)
             {
                 if (lines[i].Contains(content))
                 {

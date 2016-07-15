@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: UltimateFactory.cs
 // Date - created:2016.07.10 - 15:05
-// Date - current: 2016.07.13 - 19:22
+// Date - current: 2016.07.15 - 21:54
 
 #endregion
 
@@ -15,6 +15,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using FileAlgorithms;
 
 #endregion
 
@@ -22,9 +24,14 @@ namespace FileSearch.SearchingAlgorithms
 {
     internal static class UltimateFactory<T>
     {
-        public static Dictionary<string, T> Compute()
+#if (DEBUG)
+        private const bool DEBUG = true;
+#else
+        private const bool DEBUG = false;
+#endif
+
+        public static Dictionary<string, T> Compute(AppDomain domain)
         {
-            var myType = typeof(T);
             var toRet = new Dictionary<string, T>();
 
             // The oneliner of hell explained:
@@ -38,11 +45,41 @@ namespace FileSearch.SearchingAlgorithms
             // 7) Hope you'll don't get an error :3
 
             // Note: Well - it kind looks quite like a spell which summons satan if you wait long enough, but if you look closer...... hmmm yeah you're probably right. It'll summon satan.
-            AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(x => x.GetTypes())
-                .Where(x => myType.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+            domain.GetAssemblies()
+                .AsParallel()
+                .ForAll(assms => Compute(assms).AsParallel().ForAll(items => toRet.Add(items.Key, items.Value)));
+
+            return toRet;
+        }
+
+        public static Dictionary<string, T> Compute(Assembly assm)
+        {
+            var myType = typeof(T);
+            var toRet = new Dictionary<string, T>();
+
+            //var M = Attribute.GetCustomAttribute(x, typeof(TestingPurpose)) != null;
+            //var H_A = System.Diagnostics.Debugger.IsAttached;
+            //var F1 = !(M && H_A);
+            //var F2 = !x.IsInterface && !x.IsAbstract && myType.IsAssignableFrom(x);
+            //var F3 = !F2 && !F1;
+
+            //var expanded = !(!x.IsInterface && !x.IsAbstract && myType.IsAssignableFrom(x)) &&
+            //               !(!((Attribute.GetCustomAttribute(x, typeof(TestingPurpose)) != null) &&
+            //                   System.Diagnostics.Debugger.IsAttached));
+
+            assm.GetTypes()
+                .Where(x =>
+                {
+                    if (Attribute.IsDefined(x, typeof(TestingPurpose)))
+                        Console.WriteLine(x.Name + " has Att");
+
+                    return !x.IsInterface && !x.IsAbstract && myType.IsAssignableFrom(x) &&
+                           (DEBUG
+                               ? true
+                               : !Attribute.IsDefined(x, typeof(TestingPurpose)));
+                })
                 .ToList()
-                .ForEach(x => toRet.Add(x.Name, (T) Activator.CreateInstance(x)));
+                .ForEach(x => { toRet.Add(x.Name, (T) Activator.CreateInstance(x)); });
 
             return toRet;
         }
