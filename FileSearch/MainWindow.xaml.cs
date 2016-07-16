@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: MainWindow.xaml.cs
 // Date - created:2016.07.10 - 11:19
-// Date - current: 2016.07.16 - 18:41
+// Date - current: 2016.07.16 - 19:02
 
 #endregion
 
@@ -25,6 +25,7 @@ using System.Windows.Threading;
 using FileAlgorithms;
 using FileSearch.Modes;
 using FileSearch.SearchingAlgorithms;
+using Clipboard = System.Windows.Clipboard;
 using FileContains = FileAlgorithms.FileContains;
 using FileGathering = FileAlgorithms.FileGathering;
 using MessageBox = System.Windows.MessageBox;
@@ -314,6 +315,21 @@ namespace FileSearch
 
             // Because this button is only visible, when the current RunMode is equal to Run or Pause, we don't have to write down another if equation
             ModeManager.CurrentMode = RunningMode.Run;
+        }
+
+        /// <summary>
+        ///     Copies the current selected item into teh clipboard
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void copyBTN_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText((string) FoundItems.SelectedItem);
+        }
+
+        private void FoundItems_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CopyBtn.Visibility = FoundItems.SelectedItem == null ? Visibility.Hidden : Visibility.Visible;
         }
     }
 }

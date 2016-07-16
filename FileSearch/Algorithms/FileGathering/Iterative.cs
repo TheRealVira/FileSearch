@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: Iterative.cs
 // Date - created:2016.07.13 - 17:40
-// Date - current: 2016.07.16 - 18:41
+// Date - current: 2016.07.16 - 19:02
 
 #endregion
 

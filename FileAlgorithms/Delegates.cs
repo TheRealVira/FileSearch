@@ -6,7 +6,7 @@
 // Project: FileAlgorithms
 // Filename: Delegates.cs
 // Date - created:2016.07.15 - 17:48
-// Date - current: 2016.07.16 - 18:41
+// Date - current: 2016.07.16 - 19:02
 
 #endregion
 

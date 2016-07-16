@@ -44,6 +44,16 @@
                 HorizontalAlignment="Right" Width="155" Click="PauseBtn_OnClickBTN_Click"
                 materialDesign:ShadowAssist.ShadowDepth="Depth3" Visibility="Hidden" />
 
+        <Button x:Name="CopyBtn" Margin="0,0,10,106" Height="32" VerticalAlignment="Bottom"
+                HorizontalAlignment="Right" Width="155" Click="copyBTN_Click"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3" Style="{StaticResource MaterialDesignFlatButton}"
+                Visibility="Hidden">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="ContentCopy" />
+                <TextBlock Margin="8 0 0 0">Copy Selected</TextBlock>
+            </StackPanel>
+        </Button>
+
         <Button x:Name="SearchBtn" Content="Search" Margin="0,0,10,10" Height="32" VerticalAlignment="Bottom"
                 HorizontalAlignment="Right" Width="155" Click="searchBTN_Click"
                 materialDesign:ShadowAssist.ShadowDepth="Depth3" />
@@ -55,7 +65,7 @@
 
         <materialDesign:Card Margin="10,36,90,5" materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              VerticalAlignment="Stretch" UniformCornerRadius="10">
-            <ListBox x:Name="FoundItems" />
+            <ListBox x:Name="FoundItems" SelectionChanged="FoundItems_OnSelectionChanged" />
         </materialDesign:Card>
 
         <ComboBox x:Name="FileGatheringCmbbx" Margin="273,10,0,0" VerticalAlignment="Top"
