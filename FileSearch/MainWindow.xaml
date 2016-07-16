@@ -39,9 +39,15 @@
         <TextBox x:Name="PathTb" TextWrapping="Wrap" Text="" Margin="80,41,115,0" Height="21" VerticalAlignment="Top"
                  TextChanged="pathTB_TextChanged" />
         <Label x:Name="PathLbl" Content="Path:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" />
+
+        <Button x:Name="PauseBtn" Content="Pause" Margin="0,0,10,47" Height="32" VerticalAlignment="Bottom"
+                HorizontalAlignment="Right" Width="155" Click="PauseBtn_OnClickBTN_Click"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3" Visibility="Hidden" />
+
         <Button x:Name="SearchBtn" Content="Search" Margin="0,0,10,10" Height="32" VerticalAlignment="Bottom"
                 HorizontalAlignment="Right" Width="155" Click="searchBTN_Click"
                 materialDesign:ShadowAssist.ShadowDepth="Depth3" />
+
         <CheckBox x:Name="SubfolderCkbx" Content="Subfolders" HorizontalAlignment="Left" VerticalAlignment="Top"
                   Margin="65,13,0,0" IsChecked="True" />
         <Button x:Name="BrowseBtn" Content="Browse" VerticalAlignment="Top" Margin="0,43,10,0"
@@ -49,7 +55,7 @@
 
         <materialDesign:Card Margin="10,36,90,5" materialDesign:ShadowAssist.ShadowDepth="Depth1"
                              VerticalAlignment="Stretch" UniformCornerRadius="10">
-            <TreeView x:Name="TreeView" ItemContainerStyle="{StaticResource TreeViewItemStyle}" />
+            <ListBox x:Name="FoundItems" />
         </materialDesign:Card>
 
         <ComboBox x:Name="FileGatheringCmbbx" Margin="273,10,0,0" VerticalAlignment="Top"

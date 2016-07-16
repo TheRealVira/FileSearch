@@ -6,13 +6,13 @@
 // Project: ExamplePlugin
 // Filename: Test.cs
 // Date - created:2016.07.15 - 21:49
-// Date - current: 2016.07.15 - 21:54
+// Date - current: 2016.07.16 - 18:41
 
 #endregion
 
 #region Usings
 
-using System.Windows.Controls;
+using System.Collections.Generic;
 using FileAlgorithms;
 
 #endregion
@@ -20,13 +20,13 @@ using FileAlgorithms;
 namespace ExamplePlugin
 {
     [TestingPurpose]
-    internal class Test : FileGatheringAlgorithm
+    public class Test : FileGatheringAlgorithm
     {
-        protected override TreeViewItem[] MySearchAlgo(string directory, FileContains searchAlgorithm,
-            string textToSearchFor,
-            string searchcrets = "*", bool subfolder = true)
+        protected override IEnumerable<string> MySearchAlgo(string directory, string textToSearchFor,
+            string searchcrets = "*",
+            bool subfolder = true)
         {
-            return null;
+            return new[] {"Test"};
         }
     }
 }

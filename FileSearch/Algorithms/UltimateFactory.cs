@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: UltimateFactory.cs
 // Date - created:2016.07.10 - 15:05
-// Date - current: 2016.07.15 - 21:54
+// Date - current: 2016.07.16 - 18:41
 
 #endregion
 
@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using FileAlgorithms;
 
 #endregion
@@ -67,19 +68,23 @@ namespace FileSearch.SearchingAlgorithms
             //               !(!((Attribute.GetCustomAttribute(x, typeof(TestingPurpose)) != null) &&
             //                   System.Diagnostics.Debugger.IsAttached));
 
-            assm.GetTypes()
-                .Where(x =>
+            try
+            {
+                assm.GetTypes()
+                    .Where(x => !x.IsInterface && !x.IsAbstract && myType.IsAssignableFrom(x) &&
+                                (DEBUG
+                                    ? true
+                                    : !Attribute.IsDefined(x, typeof(TestingPurpose))))
+                    .ToList()
+                    .ForEach(x => { toRet.Add(x.Name, (T) Activator.CreateInstance(x)); });
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                foreach (var item in ex.LoaderExceptions)
                 {
-                    if (Attribute.IsDefined(x, typeof(TestingPurpose)))
-                        Console.WriteLine(x.Name + " has Att");
-
-                    return !x.IsInterface && !x.IsAbstract && myType.IsAssignableFrom(x) &&
-                           (DEBUG
-                               ? true
-                               : !Attribute.IsDefined(x, typeof(TestingPurpose)));
-                })
-                .ToList()
-                .ForEach(x => { toRet.Add(x.Name, (T) Activator.CreateInstance(x)); });
+                    MessageBox.Show(item.Message);
+                }
+            }
 
             return toRet;
         }

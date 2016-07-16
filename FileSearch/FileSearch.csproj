@@ -77,9 +77,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Algorithms\SearchAlgorithm\Buttom_To_Top.cs" />
+    <Compile Include="Algorithms\SearchAlgorithm\Bottom_To_Top.cs" />
     <Compile Include="Algorithms\SearchAlgorithm\Load_All_Into_RAM.cs" />
     <Compile Include="Algorithms\SearchAlgorithm\Top_To_Buttom.cs" />
+    <Compile Include="DialogCommand.cs" />
+    <Compile Include="Modes\ModeManager.cs" />
+    <Compile Include="Modes\RunningMode.cs" />
+    <Compile Include="Modes\RunningModeEventArgs.cs" />
     <Compile Include="SingletonContentFactory.cs" />
     <Compile Include="Algorithms\FileGathering\Iterative.cs" />
     <Compile Include="Algorithms\FileGathering\Recursive.cs" />

@@ -6,13 +6,13 @@
 // Project: FileAlgorithms
 // Filename: FileGatheringAlgorithm.cs
 // Date - created:2016.07.15 - 17:47
-// Date - current: 2016.07.15 - 21:54
+// Date - current: 2016.07.16 - 18:41
 
 #endregion
 
 #region Usings
 
-using System.Windows.Controls;
+using System.Collections.Generic;
 
 #endregion
 
@@ -27,7 +27,7 @@ namespace FileAlgorithms
             Algorithm = MySearchAlgo;
         }
 
-        protected abstract TreeViewItem[] MySearchAlgo(string directory, FileContains searchAlgorithm,
+        protected abstract IEnumerable<string> MySearchAlgo(string directory,
             string textToSearchFor,
             string searchcrets = "*", bool subfolder = true);
     }

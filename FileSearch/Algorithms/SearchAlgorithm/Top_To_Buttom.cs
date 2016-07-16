@@ -6,14 +6,13 @@
 // Project: FileSearch
 // Filename: Top_To_Buttom.cs
 // Date - created:2016.07.13 - 18:32
-// Date - current: 2016.07.15 - 21:54
+// Date - current: 2016.07.16 - 18:41
 
 #endregion
 
 #region Usings
 
 using System.IO;
-using System.Linq;
 using FileAlgorithms;
 
 #endregion
@@ -24,13 +23,23 @@ namespace FileSearch.Algorithms.SearchAlgorithm
     {
         protected override bool MySearchAlgo(string file, string content)
         {
-            var lines = File.ReadAllLines(file);
-
-            for (var i = 0; i < lines.Count(); i++)
+            using (var reader = new StreamReader(file))
             {
-                if (lines[i].Contains(content))
+                try
                 {
-                    return true;
+                    while (!reader.EndOfStream)
+                    {
+                        var readLine = reader.ReadLine();
+                        if (readLine != null && readLine.Contains(content))
+                        {
+                            return true;
+                        }
+                    }
+                }
+                finally
+                {
+                    reader.Close();
+                    reader.Dispose();
                 }
             }
 

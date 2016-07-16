@@ -6,33 +6,31 @@
 // Project: FileSearch
 // Filename: Iterative.cs
 // Date - created:2016.07.13 - 17:40
-// Date - current: 2016.07.15 - 21:54
+// Date - current: 2016.07.16 - 18:41
 
 #endregion
 
 #region Usings
 
-using System.Windows.Controls;
+using System.Collections.Generic;
 using FileAlgorithms;
 
 #endregion
 
 namespace FileSearch.Algorithms.FileGathering
 {
+    /// <summary>
+    ///     May be done in the future :P
+    /// </summary>
+    [TestingPurpose]
     internal class Iterative : FileGatheringAlgorithm
     {
-        //protected override TreeViewItem[] MySearchAlgo(string directory, FileContains searchAlgorithm,
-        //    string textToSearchFor,
-        //    string searchcrets = "*", bool subfolder = true)
-        //{
-        //}
-
-        protected override TreeViewItem[] MySearchAlgo(string directory, FileContains searchAlgorithm,
+        protected override IEnumerable<string> MySearchAlgo(string directory,
             string textToSearchFor,
             string searchcrets = "*", bool subfolder = true)
         {
             // TODO: Don't be so lazy and think about a plan how to do this!
-            return new TreeViewItem[0];
+            return new string[0];
         }
     }
 }

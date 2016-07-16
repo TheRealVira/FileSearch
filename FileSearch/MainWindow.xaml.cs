@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: MainWindow.xaml.cs
 // Date - created:2016.07.10 - 11:19
-// Date - current: 2016.07.15 - 21:54
+// Date - current: 2016.07.16 - 18:41
 
 #endregion
 
@@ -17,11 +17,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using FileAlgorithms;
+using FileSearch.Modes;
 using FileSearch.SearchingAlgorithms;
 using FileContains = FileAlgorithms.FileContains;
 using FileGathering = FileAlgorithms.FileGathering;
@@ -36,10 +38,24 @@ namespace FileSearch
     /// </summary>
     public partial class MainWindow
     {
+        /// <summary>
+        ///     Those algorithms will gather my files together (WITHOUT validations)
+        /// </summary>
         private readonly Dictionary<string, FileGatheringAlgorithm> _fileGatheringAlgorithms;
+
+        /// <summary>
+        ///     Those algorithms will determine, if my gathered files are worth to be in my premium listbox (called 'FoundItems')
+        /// </summary>
         private readonly Dictionary<string, ContentSearchAlgorithm> _fileSearchingAlgorithms;
 
+        /// <summary>
+        ///     The current algorithm to gather files.
+        /// </summary>
         private FileGathering _thatsHowIGatherFiles;
+
+        /// <summary>
+        ///     The current algorithm to validate files.
+        /// </summary>
         private FileContains _thatsHowISearch;
 
         public MainWindow()
@@ -47,12 +63,29 @@ namespace FileSearch
             InitializeComponent();
             SingletonContentFactory.LoadContent();
 
-            // Get all file-searching algorithms and put them into a combobox.
+            // Setup running mode events
+            ModeManager.RunningEvent += (sender, args) =>
+            {
+                PauseBtn.Content = "Pause";
+                PauseBtn.Visibility = Visibility.Visible;
+                SearchBtn.Content = "Stop";
+            };
+
+            ModeManager.PausingEvent += (sender, args) => { PauseBtn.Content = "Resume"; };
+
+            ModeManager.StoppingEvent += (sender, args) =>
+            {
+                PauseBtn.Visibility = Visibility.Hidden;
+                SearchBtn.Content = "Search";
+            };
+
             _fileGatheringAlgorithms = UltimateFactory<FileGatheringAlgorithm>.Compute(AppDomain.CurrentDomain);
+            _fileSearchingAlgorithms = UltimateFactory<ContentSearchAlgorithm>.Compute(AppDomain.CurrentDomain);
+
+            // Get all file-searching algorithms and put them into a combobox.
             _fileGatheringAlgorithms.GetKeys().ForEach(x => FileGatheringCmbbx.Items.Add(x));
 
             // Get all "string in File"-searching algorithms and put them into another combobox.
-            _fileSearchingAlgorithms = UltimateFactory<ContentSearchAlgorithm>.Compute(AppDomain.CurrentDomain);
             _fileSearchingAlgorithms.GetKeys().ForEach(x => AlgorithmCmbbx.Items.Add(x));
 
             // Loads custom plugins (if there are any)
@@ -69,13 +102,16 @@ namespace FileSearch
                 return;
             }
 
-            FileGatheringCmbbx.SelectedIndex = FileGatheringCmbbx.Items.Count - 1;
-            AlgorithmCmbbx.SelectedIndex = AlgorithmCmbbx.Items.Count - 1;
+            FileGatheringCmbbx.SelectedIndex = 0;
+            AlgorithmCmbbx.SelectedIndex = 0;
         }
 
         // Is only true, when the path is set correctly
-        private bool Workz { get; set; }
+        private bool PathIsValid { get; set; }
 
+        /// <summary>
+        ///     Will load all *.dll in the Plugins directory and add the matching algorithms to their matching combobox.
+        /// </summary>
         private void Loadplugin()
         {
             if (!Directory.Exists("Plugins")) return;
@@ -121,12 +157,22 @@ namespace FileSearch
             }
         }
 
+        /// <summary>
+        ///     When changing the path by hand, than you shall not pass if you enter something incorrect!
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pathTB_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Load content
-            Workz = Directory.Exists(PathTb.Text);
+            PathIsValid = Directory.Exists(PathTb.Text);
         }
 
+        /// <summary>
+        ///     This button will call an dialog, which lets the user pick an directory.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void browseBTN_Click(object sender, RoutedEventArgs e)
         {
             var dia = new FolderBrowserDialog();
@@ -141,35 +187,99 @@ namespace FileSearch
             PathTb.Text = dia.SelectedPath;
         }
 
+        /// <summary>
+        ///     This button is Search and Stop button, but never at the same time.
+        ///     When the button's content is showing 'Search' than it'll start(over) the searching algorithms (in a
+        ///     separate task).
+        ///     When the button's content is showing 'Stop' than it'll stop the algorithms and jump out of the separate task.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchBTN_Click(object sender, RoutedEventArgs e)
         {
-            if (!Workz && !Directory.Exists(PathTb.Text))
+            if (ModeManager.CurrentMode != RunningMode.Stop)
+                // If the current search button is in fact the 'Stop'-Button, we'll stop, when clicked again.
+            {
+                ModeManager.CurrentMode = RunningMode.Stop;
+                return;
+            }
+
+            if (!PathIsValid && !Directory.Exists(PathTb.Text))
             {
                 MessageBox.Show("Path not set", "Error", new MessageBoxButton(), MessageBoxImage.Error);
                 return;
             }
 
-            TreeView.Items.Clear();
+            FoundItems.Items.Clear();
 
-            // Select the correct search algorithm by the SelectedIndex; If it returns null -> create a temp array
-            foreach (
-                var node in
-                    _thatsHowIGatherFiles(PathTb.Text, _thatsHowISearch, SearchForTb.Text, ExtensionTb.Text,
-                        SubfolderCkbx.IsChecked ?? false))
+            var check = SubfolderCkbx.IsChecked ?? false;
+            var path = PathTb.Text;
+            var searchText = SearchForTb.Text;
+            var extension = ExtensionTb.Text;
+            ModeManager.CurrentMode = RunningMode.Run;
+            Task.Factory.StartNew(() =>
             {
-                TreeView.Items.Add(node);
-            }
+                //SearchBtn.Dispatcher.Invoke(() => SearchBtn.Content = "Stop");
 
-            TreeView.Items.OfType<TreeViewItem>().ToList().ForEach(x => x.ExpandSubtree());
+                foreach (
+                    var file in
+                        _thatsHowIGatherFiles(path, searchText, extension,
+                            check).Where(x => x != null))
+                {
+                    while (ModeManager.CurrentMode == RunningMode.Pause)
+                    {
+                    } // While we are paused, we'd stuck in an endless loop
 
-            MessageBox.Show("Done searching");
+                    if (ModeManager.CurrentMode == RunningMode.Stop)
+                        return; // If we should stop, than we jump out of this Task
+
+                    try
+                    {
+                        if (!_thatsHowISearch(file, searchText))
+                            continue;
+                        // If the file doesn't contain the content we wish to see, than we'll continue with other files
+                    }
+                    catch (Exception ex)
+                    {
+#if DEBUG
+                        Console.WriteLine(ex.Message);
+#endif
+                    }
+
+                    FoundItems.Dispatcher.Invoke(
+                        () => // Just some invoking, because we're in an other task than the control
+                        {
+                            FoundItems.Items.Add(file);
+                            FoundItems.SelectedIndex = FoundItems.Items.Count - 1;
+                            FoundItems.ScrollIntoView(FoundItems.SelectedItem);
+                        });
+                }
+
+                SearchBtn.Dispatcher.Invoke(
+                    () =>
+                        // Same invoke thingy going on here, which is because we'll change properties of the 'SearchBtn' and the 'PauseBtn'
+                    { PauseBtn.Dispatcher.Invoke(() => { ModeManager.CurrentMode = RunningMode.Stop; }); });
+
+                // Notify the user, that we are finished now:
+                MessageBox.Show("Done searching");
+            });
         }
 
+        /// <summary>
+        ///     When the selection of the ContentSearchingAlgorithms changes, the current algorithm changes too.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void algorithmCMBBX_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _thatsHowISearch = _fileSearchingAlgorithms[AlgorithmCmbbx.SelectedItem.ToString()].Algorithm;
         }
 
+        /// <summary>
+        ///     When the selection of the FileSearchingAlgorithms changes, the current algorithm changes too.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FileGatheringCmbbx_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _thatsHowIGatherFiles = _fileGatheringAlgorithms[FileGatheringCmbbx.SelectedItem.ToString()].Algorithm;
@@ -182,8 +292,28 @@ namespace FileSearch
         /// <param name="e"></param>
         private void MetroWindow_Closed(object sender, EventArgs e)
         {
-            TreeView.Items.Clear();
+            FoundItems.Items.Clear();
             SingletonContentFactory.Dispose();
+        }
+
+        /// <summary>
+        ///     This button won't be visible, when the current mode is 'Stop' (you could say the program isn't in sleeping state,
+        ///     when this button lights up :))
+        ///     When the content of this button saies 'Pause', than it'll pause the algorithms (but won't stop them!!!)
+        ///     When the content of this button saies 'Resum', than it'll resume the paused algorithms... (Who'd guessed it xD)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PauseBtn_OnClickBTN_Click(object sender, RoutedEventArgs e)
+        {
+            if (ModeManager.CurrentMode == RunningMode.Run)
+            {
+                ModeManager.CurrentMode = RunningMode.Pause;
+                return;
+            }
+
+            // Because this button is only visible, when the current RunMode is equal to Run or Pause, we don't have to write down another if equation
+            ModeManager.CurrentMode = RunningMode.Run;
         }
     }
 }
