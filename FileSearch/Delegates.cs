@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: Delegates.cs
 // Date - created:2016.07.10 - 16:08
-// Date - current: 2016.07.16 - 19:02
+// Date - current: 2016.08.17 - 16:28
 
 #endregion
 

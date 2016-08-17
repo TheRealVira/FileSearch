@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: Top_To_Buttom.cs
 // Date - created:2016.07.13 - 18:32
-// Date - current: 2016.07.16 - 19:02
+// Date - current: 2016.08.17 - 16:28
 
 #endregion
 
@@ -19,7 +19,7 @@ using FileAlgorithms;
 
 namespace FileSearch.Algorithms.SearchAlgorithm
 {
-    internal class Top_To_Buttom : ContentSearchAlgorithm
+    internal class Top_To_Bottom : ContentSearchAlgorithm
     {
         protected override bool MySearchAlgo(string file, string content)
         {
