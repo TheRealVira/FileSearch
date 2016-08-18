@@ -6,7 +6,7 @@ FileSearch was a helpless boring homework given by my new programming teacher. A
 
 ## How to write a plug-in for FileSearch
 
-* Add the FileAlgorithm library to your lirbrary project (or simple download the [nuget package](https://www.nuget.org/packages/FileSearch/1.0.0)) :arrow_down:
+* Add the FileAlgorithm library to your project (or simple download the [nuget package](https://www.nuget.org/packages/FileSearch/1.0.0)) :arrow_down:
 * Basic implementation here :innocent:
 * Compile your plug-in library :collision:
 * Put your lib into the "Plugins" folder :eyes:
