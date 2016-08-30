@@ -32,6 +32,6 @@ I've implemented the "TestingPurpose" attribute, which allows us to create algor
 
 This was a fun project to design, not only because I'll need this kind of programm in the future, but also because it gave me a lesson in "Material Design". As for this project, I'm using WPF with a nice [template](https://github.com/ButchersBoy/MaterialDesignInXamlToolkit).
 
-Shoutouts to ButchersBoy and as always:
+Shoutouts to [ButchersBoy](https://github.com/ButchersBoy) and as always:
 
 Happy coding! :necktie:
