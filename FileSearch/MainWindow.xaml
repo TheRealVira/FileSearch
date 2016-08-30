@@ -7,6 +7,7 @@
                       Title="SearchFile" Height="440" Width="900" MinHeight="440" MinWidth="900"
                       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:fileSearch="clr-namespace:FileSearch"
                       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                       TextElement.FontWeight="Regular"
                       TextElement.FontSize="13"
@@ -16,66 +17,13 @@
                       Background="{DynamicResource MaterialDesignPaper}"
                       FontFamily="{DynamicResource MaterialDesignFont}" Closed="MetroWindow_Closed">
     <Grid>
-
-        <materialDesign:Card Height="216" Margin="10,50,5,0" HorizontalAlignment="Right" Width="170"
-                             VerticalAlignment="Top" UniformCornerRadius="10"
-                             materialDesign:ShadowAssist.ShadowDepth="Depth2">
-            <StackPanel>
-                <Label x:Name="ExtensionLbl" Content="File extionsion:" HorizontalAlignment="Stretch"
-                       VerticalAlignment="Top" Margin="10,10,10,0" />
-
-                <TextBox x:Name="ExtensionTb" TextWrapping="Wrap" Text=".cs" HorizontalAlignment="Stretch"
-                         VerticalAlignment="Top" Margin="10,10,10,0" />
-
-                <Label x:Name="StextLbl" Content="Search for:" HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                       Margin="10,20,10,0" />
-                <TextBox x:Name="SearchForTb" TextWrapping="Wrap" Text="" HorizontalAlignment="Stretch"
-                         Margin="10,10,10,0" />
-            </StackPanel>
-        </materialDesign:Card>
-
-        <Label x:Name="DirectoryLbl" Content="Directory:" HorizontalAlignment="Left" VerticalAlignment="Top"
-               Margin="10,41,0,0" />
-        <TextBox x:Name="PathTb" TextWrapping="Wrap" Text="" Margin="80,41,115,0" Height="21" VerticalAlignment="Top"
-                 TextChanged="pathTB_TextChanged" />
-        <Label x:Name="PathLbl" Content="Path:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" />
-
-        <Button x:Name="PauseBtn" Content="Pause" Margin="0,0,10,47" Height="32" VerticalAlignment="Bottom"
-                HorizontalAlignment="Right" Width="155" Click="PauseBtn_OnClickBTN_Click"
-                materialDesign:ShadowAssist.ShadowDepth="Depth3" Visibility="Hidden" />
-
-        <Button x:Name="CopyBtn" Margin="0,0,10,106" Height="32" VerticalAlignment="Bottom"
-                HorizontalAlignment="Right" Width="155" Click="copyBTN_Click"
-                materialDesign:ShadowAssist.ShadowDepth="Depth3" Style="{StaticResource MaterialDesignFlatButton}"
-                Visibility="Hidden">
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="ContentCopy" />
-                <TextBlock Margin="8 0 0 0">Copy Selected</TextBlock>
-            </StackPanel>
-        </Button>
-
-        <Button x:Name="SearchBtn" Content="Search" Margin="0,0,10,10" Height="32" VerticalAlignment="Bottom"
-                HorizontalAlignment="Right" Width="155" Click="searchBTN_Click"
-                materialDesign:ShadowAssist.ShadowDepth="Depth3" />
-
-        <CheckBox x:Name="SubfolderCkbx" Content="Subfolders" HorizontalAlignment="Left" VerticalAlignment="Top"
-                  Margin="65,13,0,0" IsChecked="True" />
-        <Button x:Name="BrowseBtn" Content="Browse" VerticalAlignment="Top" Margin="0,43,10,0"
-                HorizontalAlignment="Right" Width="100" Click="browseBTN_Click" />
-
-        <materialDesign:Card Margin="10,36,90,5" materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                             VerticalAlignment="Stretch" UniformCornerRadius="10">
-            <ListBox x:Name="FoundItems" SelectionChanged="FoundItems_OnSelectionChanged" />
-        </materialDesign:Card>
-
-        <ComboBox x:Name="FileGatheringCmbbx" Margin="273,10,0,0" VerticalAlignment="Top"
-                  SelectionChanged="FileGatheringCmbbx_OnSelectionChanged" HorizontalAlignment="Left" Width="222" />
-        <Label x:Name="FileGatheringLbl" Content="File Gathering:" VerticalAlignment="Top"
-               Margin="176,12,0,0" HorizontalAlignment="Left" Width="92" />
-
-        <ComboBox x:Name="AlgorithmCmbbx" Margin="610,10,0,0" VerticalAlignment="Top"
-                  SelectionChanged="algorithmCMBBX_SelectionChanged" HorizontalAlignment="Left" Width="272" />
-        <Label x:Name="AlgoithmLbl" Content="Algorithm:" VerticalAlignment="Top"
-               Margin="535,10,0,0" HorizontalAlignment="Left" Width="70" />
+        <TabControl>
+            <TabItem Header="Search Files">
+                <fileSearch:SearchFile />
+            </TabItem>
+            <TabItem Header="Count Lines">
+                <fileSearch:CountLines />
+            </TabItem>
+        </TabControl>
     </Grid>
 </controls:MetroWindow>

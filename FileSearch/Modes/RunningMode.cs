@@ -6,7 +6,7 @@
 // Project: FileSearch
 // Filename: RunningMode.cs
 // Date - created:2016.07.16 - 17:31
-// Date - current: 2016.08.17 - 16:28
+// Date - current: 2016.08.31 - 00:50
 
 #endregion
 

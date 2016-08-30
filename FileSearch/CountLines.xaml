@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="FileSearch.CountLines"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}">
+    <Grid>
+        <Label x:Name="EndOfLineIndicator" Content="End of line indicator :" HorizontalAlignment="Stretch"
+               VerticalAlignment="Top" Margin="10,10,10,0" />
+
+        <TextBox x:Name="EndOfLineIndecatorTb" HorizontalAlignment="Stretch" VerticalContentAlignment="Top"
+                 Margin="150,10,10,0" VerticalAlignment="Top" />
+
+        <Button x:Name="CountBtn" Margin="0,85,10,0" Height="32" VerticalAlignment="Top"
+                HorizontalAlignment="Right" Width="201" Click="CountBtn_OnClickBTN_Click"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3" Style="{StaticResource MaterialDesignFlatButton}"
+                Visibility="Visible">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Binoculars" />
+                <TextBlock Margin="8 0 0 0">Count Lines!</TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="CopyBtn" Margin="0,122,10,0" Height="32" VerticalAlignment="Top"
+                HorizontalAlignment="Right" Width="201" Click="CopyBTN_Click"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3" Style="{StaticResource MaterialDesignFlatButton}"
+                Visibility="Visible">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="ContentCopy" />
+                <TextBlock Margin="8 0 0 0">Copy Count</TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="ResetBtn" Margin="0,159,10,0" Height="32" VerticalAlignment="Top"
+                HorizontalAlignment="Right" Width="201" Click="ResetBtn_OnClickBTN_Click"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3" Style="{StaticResource MaterialDesignFlatButton}"
+                Visibility="Visible">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="RedoVariant" />
+                <TextBlock Margin="8 0 0 0">Reset Count</TextBlock>
+            </StackPanel>
+        </Button>
+
+        <CheckBox x:Name="OnlySelectedItemsCkBx" VerticalContentAlignment="Top" HorizontalAlignment="Right"
+                  Margin="10,196,10,144">
+            Search only in the selected files
+        </CheckBox>
+
+        <materialDesign:Card Margin="10,35,110,5" materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                             VerticalAlignment="Stretch" UniformCornerRadius="10">
+            <StackPanel>
+                <Label x:Name="CounterLbl" HorizontalAlignment="Left" VerticalContentAlignment="Top"
+                       Margin="10,10,10,10" FontSize="20" FontStyle="Italic">
+                    <TextBlock TextDecorations="Underline">Count:</TextBlock>
+                </Label>
+                <Label x:Name="Counter" HorizontalAlignment="Center" VerticalContentAlignment="Center"
+                       FontWeight="Bold" FontSize="72">
+                    0
+                </Label>
+            </StackPanel>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>

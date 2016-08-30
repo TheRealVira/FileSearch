@@ -80,15 +80,25 @@
     <Compile Include="Algorithms\SearchAlgorithm\Bottom_To_Top.cs" />
     <Compile Include="Algorithms\SearchAlgorithm\Load_All_Into_RAM.cs" />
     <Compile Include="Algorithms\SearchAlgorithm\Top_To_Buttom.cs" />
+    <Compile Include="CountLines.xaml.cs">
+      <DependentUpon>CountLines.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DialogCommand.cs" />
     <Compile Include="Modes\ModeManager.cs" />
     <Compile Include="Modes\RunningMode.cs" />
     <Compile Include="Modes\RunningModeEventArgs.cs" />
+    <Compile Include="SearchFile.xaml.cs">
+      <DependentUpon>SearchFile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SingletonContentFactory.cs" />
     <Compile Include="Algorithms\FileGathering\Iterative.cs" />
     <Compile Include="Algorithms\FileGathering\Recursive.cs" />
     <Compile Include="Algorithms\UltimateFactory.cs" />
     <Compile Include="Delegates.cs" />
+    <Page Include="CountLines.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -102,6 +112,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SearchFile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
