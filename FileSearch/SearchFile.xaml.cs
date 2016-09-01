@@ -31,6 +31,7 @@ using FileContains = FileAlgorithms.FileContains;
 using FileGathering = FileAlgorithms.FileGathering;
 using ListBox = System.Windows.Controls.ListBox;
 using MessageBox = System.Windows.MessageBox;
+using UserControl = System.Windows.Controls.UserControl;
 
 #endregion
 
@@ -39,7 +40,7 @@ namespace FileSearch
     /// <summary>
     ///     Interaction logic for SearchFile.xaml
     /// </summary>
-    public partial class SearchFile
+    public partial class SearchFile:UserControl
     {
         /// <summary>
         ///     A bit hacky... :P
@@ -49,12 +50,12 @@ namespace FileSearch
         /// <summary>
         ///     Those algorithms will gather my files together (WITHOUT validations)
         /// </summary>
-        private readonly Dictionary<string, FileGatheringAlgorithm> _fileGatheringAlgorithms;
+        private Dictionary<string, FileGatheringAlgorithm> _fileGatheringAlgorithms;
 
         /// <summary>
         ///     Those algorithms will determine, if my gathered files are worth to be in my premium listbox (called 'FoundItems')
         /// </summary>
-        private readonly Dictionary<string, ContentSearchAlgorithm> _fileSearchingAlgorithms;
+        private Dictionary<string, ContentSearchAlgorithm> _fileSearchingAlgorithms;
 
         /// <summary>
         ///     The current algorithm to gather files.
@@ -69,21 +70,27 @@ namespace FileSearch
         public SearchFile()
         {
             InitializeComponent();
+
+            if (!(Application.Current is App))
+            {
+                return;
+            }
+
             SingletonContentFactory.LoadContent();
 
             PublicFoundItems = FoundItems;
 
             // Setup running mode events
-            ModeManager.RunningEvent += (sender, args) =>
+            ModeManager.RunningEvent += (s, args) =>
             {
                 PauseBtn.Content = "Pause";
                 PauseBtn.Visibility = Visibility.Visible;
                 SearchBtn.Content = "Stop";
             };
 
-            ModeManager.PausingEvent += (sender, args) => { PauseBtn.Content = "Resume"; };
+            ModeManager.PausingEvent += (s, args) => { PauseBtn.Content = "Resume"; };
 
-            ModeManager.StoppingEvent += (sender, args) =>
+            ModeManager.StoppingEvent += (s, args) =>
             {
                 PauseBtn.Visibility = Visibility.Hidden;
                 SearchBtn.Content = "Search";
@@ -98,7 +105,7 @@ namespace FileSearch
             // Get all "string in File"-searching algorithms and put them into another combobox.
             _fileSearchingAlgorithms.GetKeys().ForEach(x => AlgorithmCmbbx.Items.Add(x));
 
-            // Loads custom plugins (if there are any)
+            //Loads custom plugins(if there are any)
             Loadplugin();
 
             // If one of those dictionary is empty, than we have a problem...

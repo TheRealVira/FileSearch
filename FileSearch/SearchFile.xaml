@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -17,7 +16,7 @@
                              VerticalAlignment="Top" UniformCornerRadius="10"
                              materialDesign:ShadowAssist.ShadowDepth="Depth2">
             <StackPanel>
-                <Label x:Name="ExtensionLbl" Content="File extionsion:" HorizontalAlignment="Stretch"
+                <Label x:Name="ExtensionLbl" Content="File extension:" HorizontalAlignment="Stretch"
                        VerticalAlignment="Top" Margin="10,10,10,0" />
 
                 <TextBox x:Name="ExtensionTb" TextWrapping="Wrap" Text=".cs" HorizontalAlignment="Stretch"
@@ -42,7 +41,7 @@
 
         <Button x:Name="CopyBtn" Margin="0,0,10,57" Height="32" VerticalAlignment="Bottom"
                 HorizontalAlignment="Right" Width="155" Click="copyBTN_Click"
-                materialDesign:ShadowAssist.ShadowDepth="Depth3" Style="{StaticResource MaterialDesignFlatButton}"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3"
                 Visibility="Hidden">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="ContentCopy" />

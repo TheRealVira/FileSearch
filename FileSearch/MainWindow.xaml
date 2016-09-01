@@ -5,7 +5,6 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
                       Title="SearchFile" Height="440" Width="900" MinHeight="440" MinWidth="900"
-                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:fileSearch="clr-namespace:FileSearch"
                       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -19,7 +18,7 @@
     <Grid>
         <TabControl>
             <TabItem Header="Search Files">
-                <fileSearch:SearchFile />
+                <fileSearch:SearchFile/>
             </TabItem>
             <TabItem Header="Count Lines">
                 <fileSearch:CountLines />
